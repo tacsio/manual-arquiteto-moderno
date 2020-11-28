@@ -437,7 +437,7 @@ Com a introdução do conceito de contêines e orquestração de contêineres ao
 
 Deve-se também ter em mente o cenário em que você já utilizou o Kubernetes e já tem um conhecimento mais aprofundado da ferramenta. Com isso, você já tem idéias de como melhorar ou facilitar os fluxos internos de orquestração, práticas de desenvolvimento, de entrega contínua. Tem idéias de UI que podem auxiliar o usuário ou práticas que podem acelerar a entrega de aplicações. Com base nisto, você pode, ao invés de usar o Kubernetes, partir para um dos flavors disponíveis e até mesmo criar o seu próprio flavor! 
 
-# Conclusão 
+## Conclusão 
 
 Não existem dúvidas de que o futuro da tecnologia reside na cloud. Com o surgimento dos microserviços, cada vez mais precisamos do conhecimento do ecossistema que gira ao seu redor. Com o aumento no uso de contêineres e práticas de DevOps, cada vez mais o desenvolvedor precisa conhecer sobre plataforma, e o system admin precisa conhecer sobre desenvolvimento. 
 

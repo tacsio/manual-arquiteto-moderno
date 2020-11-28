@@ -59,55 +59,56 @@ Quer exemplos?
 - **Pilhas**: Sua IDE faz uso de pilhas a todo momento para conferir se as chaves abertas foram fechadas corretamente (o *parser* da linguagem faz uso de pilhas quase que constantemente). Se os parêntesis que definem as instruções em `Clojure` estão em conformidade. Isso apenas para citar exemplos imediatos. 
 
 Além destes exemplos mais "simples" (e destaco a importância de se colocar o termo entre aspas), temos também exemplos mais complexos que geram muita diferença de desempenho nas aplicações. Por exemplo: Qual a diferença entre utilizarmos Listas (sejam elas Vetores ou listas ligadas) e Hash? A principal diferença está no desempenho da busca. Observe este pequeno exemplo de benchmark em Java:
-
-		ArrayList<Produto> lista;
-		lista = new ArrayList<Produto>();
-		for (int i = 0; i < 100000; i++) {
-		    Produto p = new Produto(i + 1, "Produto " + (i + 1), 0, 0);
-		    lista.add(p);
-		}
-		int quantosAchei=0; // numero de ocorrencias encontradas
-		// inicio da medicao do tempo
-		long inicio = System.currentTimeMillis();
-		Produto busca;
-		for (int cont = 0; cont < 10000; cont++) {
-		    for (int i = 0; i < lista.size(); i++) {
-		        Produto tmp = lista.get(i);
-		        if (tmp.getId() == -1) { // forcando buscar um ID que nao existe na lista -> o pior caso
-		             busca = tmp;
-		             quantosAchei++;
-		             break;
-		         }
-		     }
-		 }
-		 long fim = System.currentTimeMillis();
-		 // fim da medicao do tempo
-		 System.out.println("Achei = " + quantosAchei +" em "+(fim-inicio));
-
+```java
+ArrayList<Produto> lista;
+lista = new ArrayList<Produto>();
+for (int i = 0; i < 100000; i++) {
+		Produto p = new Produto(i + 1, "Produto " + (i + 1), 0, 0);
+		lista.add(p);
+}
+int quantosAchei=0; // numero de ocorrencias encontradas
+// inicio da medicao do tempo
+long inicio = System.currentTimeMillis();
+Produto busca;
+for (int cont = 0; cont < 10000; cont++) {
+		for (int i = 0; i < lista.size(); i++) {
+				Produto tmp = lista.get(i);
+				if (tmp.getId() == -1) { // forcando buscar um ID que nao existe na lista -> o pior caso
+							busca = tmp;
+							quantosAchei++;
+							break;
+					}
+			}
+	}
+	long fim = System.currentTimeMillis();
+	// fim da medicao do tempo
+	System.out.println("Achei = " + quantosAchei +" em "+(fim-inicio));
+```
 Este simples algoritmo popula uma lista com 100.000 objetos do tipo produto e realiza 10.000 buscas de um produto inexistente nesta lista. Como é uma estrutura linear (e voltamos na análise de algoritmos), a busca obrigatoriamente tem que passar por todos os objetos até concluir que ele não existe na lista. Um algoritmo deste pode levar alguns bons segundos para executar (um teste em uma máquina comum pode levar entre 2 e 5 segundos para executar).
 É possível melhorar o desempenho desta busca? Claro que sim. Poderíamos usar, ao invés de busca linear, um algoritmo de busca binária. Entretanto para esta estratégia nosso conjunto precisaria estar previamente ordenado.
 
 Agora, se pensarmos em outra estrutura, como um mapa Hash, qual a vantagem? Vamos observar este código.
+```java
+HashMap<Integer, Produto> mapa;
+mapa = new HashMap<Integer, Produto>();
+for (int i = 0; i < 1000000; i++) {
+		Produto p = new Produto(i + 1, "Produto " + (i + 1), 0, 0);
+		mapa.put(p.getId(), p);
+}
+int quantosAchei=0;
 
-		HashMap<Integer, Produto> mapa;
-		mapa = new HashMap<Integer, Produto>();
-		for (int i = 0; i < 1000000; i++) {
-		   Produto p = new Produto(i + 1, "Produto " + (i + 1), 0, 0);
-		   mapa.put(p.getId(), p);
-		}
-		int quantosAchei=0;
-		
-		// inicio da medicao
-		long inicio = System.currentTimeMillis();
-		for (int cont=0; cont< 10000; cont++) {
-			Produto busca = mapa.get(-1); // novamente forcando a busca de um elemento que nao existe
-			if (busca != null) {
-				quantosAchei++;
-			}
-		}
-		long fim = System.currentTimeMillis();
-		// fim da medicao
-		System.out.println("Achei = "+quantosAchei+" em "+(fim-inicio));
+// inicio da medicao
+long inicio = System.currentTimeMillis();
+for (int cont=0; cont< 10000; cont++) {
+	Produto busca = mapa.get(-1); // novamente forcando a busca de um elemento que nao existe
+	if (busca != null) {
+		quantosAchei++;
+	}
+}
+long fim = System.currentTimeMillis();
+// fim da medicao
+System.out.println("Achei = "+quantosAchei+" em "+(fim-inicio));
+```
 
 Pela própria definição de Hash, há um cálculo para determinar, através de um atributo chave do objeto, qual a posição de memória que ele irá ocupar. Uma vez determinada esta posição, o acesso é direto ao objeto (ou a inexistência dele). Portanto o tempo computacional de acesso de um objeto em um mapa hash é O(1), ou seja, constante!
 
@@ -121,16 +122,18 @@ Um algoritmo bastante comum na formação durante a Graduação é o percurso e 
 
 Fragmento1: preenchimento Linha x Coluna
 
+```java
+for (int i=0; i < TAM; i++)
+	for (int j=0; j < TAM; j++)
+		matriz[i][j] = valor;
+```
 
-	for (int i=0; i < TAM; i++)
-		for (int j=0; j < TAM; j++)
-			matriz[i][j] = valor;
-
-   Fragmento 2: preenchimento Coluna x Linha
-	   for (int i=0; i < TAM; i++)
-		   for (int j=0; j < TAM ; j++)
-			   matriz[j][i] = valor;
-
+Fragmento 2: preenchimento Coluna x Linha
+```java
+		for (int i=0; i < TAM; i++)
+			for (int j=0; j < TAM ; j++)
+				matriz[j][i] = valor;
+```
 O aspecto interessante nestes códigos é que, na prática, o desempenho destes dois algoritmos é muito diferente, se a dimensão da matriz for considerável (aqui, considerável, vamos pensar em valores acima de 5.000).
 
 Mas por que a diferença de desempenho? Por conta do número de acessos ao cache. Se aprofundarmos um pouco mais o estudo e também levarmos em conta Arquitetura de computadores, veremos que uma matriz é alocada em memória como um grande array (a notação de matriz que as linguagens de programação utilizam é apenas uma abstração). Por conta disso (e levando em consideração o conceito da localidade referencial - negligenciado no estudo de Sistemas Operacionais), obviamente se uma linha é trazida para o cache, é muito mais rápido preencher seus elementos adjacentes até que haja a necessidade de acesso a outras páginas de memória (gerando assim um *page fault*) do que ficar buscando elementos em regiões "distantes" da memória, aumentando - e muito - o volume de paginação.

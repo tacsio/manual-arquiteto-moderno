@@ -53,6 +53,6 @@ Existem diversas motivações para realizar uma refatoração do código e lista
 * **Refatorando para remover duplicidade**: Reduzir código dentro do projeto é uma boa motivação. Quando somos júniors tendemos a ficar felizes quando adicionamos código e quando ficamos mais experientes ficamos felizes com a redução de código que precisamos. Uma das estretégias de reduzir o código é, justamente, evitar a duplicação de código. Isso te garantirá um único ponto para refatoração, facilidade de teste além de performance, principalmente, se você trabalha dentro da JVM uma vez que existe o fator JIT.
 * **Refatorando para usar uma biblioteca**: O melhor código, certamente, é aquele que não escrevemos. Reduzir a quantidade de código siginifica reduzir a complexidade do seu lado além de diminuir os pontos que darão erro. Isso é excelente, principalmente, quando essa biblioteca já esteja disponível dentro do seu projeto. Vale salientar, que um excesso de dependência também pode ser perigosa. Lembre-se que quanto maior as suas depenências maior a estratégia para atualizar as bibliotecas (além do conhecido problema de "Jar Hell").
 
-# Concluindo    
+## Concluindo    
 
 Com isso concluímos o tópico sobre refatoração do código. Abordamos pontos importantes como a motivação de se refatorar o código além dos seus riscos. Como um bom desenvolvedor é sempre importante colocar na balança as motivações, evitar problemas futuros de manutenabilidade  e legibilidade do código e - como sempre - o bom senso é a melhor ferramenta do desenvolvedor.

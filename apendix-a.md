@@ -1,6 +1,7 @@
-Apendice A: Segurança 
+# Apendice A: Segurança {.unnumbered}
 
-## Práticas de Segurança
+## Práticas de Segurança {.unnumbered}
+
 
 Código seguro deveria ser uma regra em qualquer design de aplicação, em alguns ramos são tão importantes quanto qualquer regra de qualidade que se possa ter. E para microsserviços não é diferente e aqui não existe nenhum segredo, é a mesma regra para qualquer desenho de aplicação, no mínimo se deve olhar para o [Top 10 do OWASP](https://owasp.org/www-project-top-ten/) e seguir essas recomendações no seu projeto. O mínimo que o seu desenvolvedor precisa saber é sobre essas vulnerabilidades.
 
@@ -26,7 +27,7 @@ A chave são seguir ao menos cinco pilares:
 - Use Tokens de Acesso e Identidade
 - Proteja e Encripte seus segredos.
 
-#### Soluções para Autenticação e Autorização
+#### Soluções para Autenticação e Autorização{.unnumbered}
 
 Para o mundo de microsserviços o principal ponto é verificar quem você é (Autenticação) e aquilo que você pode fazer (Autorização). E dentro da arquitetura de microsserviços você vai estar espalhado em muito serviços pela rede e terá que lidar com alguns problemas em relação a como resolver isso.
 
